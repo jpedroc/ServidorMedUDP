@@ -5,11 +5,13 @@ import domain.Prontuario;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class ProntuarioService {
 
+    private ArrayList<Prontuario> listaProntuarios = new ArrayList<Prontuario>();
 
-    public Prontuario tratarProntuario(byte[] mensagem) {
+    public String tratarProntuario(byte[] mensagem) {
         try {
             Prontuario prontuario = new Prontuario();
             ByteArrayInputStream bao = new ByteArrayInputStream(mensagem);
@@ -17,8 +19,9 @@ public class ProntuarioService {
 
             ous = new ObjectInputStream(bao);
             prontuario = (Prontuario) ous.readObject();
+            this.listaProntuarios.add(prontuario);
 
-            return prontuario;
+            return verificarSintomas(prontuario);
 
         } catch (IOException e) {
             e.printStackTrace();
