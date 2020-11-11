@@ -14,7 +14,7 @@ public class ProntuarioResource {
     public static void main(String[] args) throws Exception {
         try {
             ProntuarioService prontuarioService = new ProntuarioService();
-            DatagramSocket serverSocket = new DatagramSocket(9999);
+            DatagramSocket serverSocket = new DatagramSocket(5001);
 
             while(true) {
                 byte[] dadosRec = new byte[1024];
@@ -22,7 +22,7 @@ public class ProntuarioResource {
                 DatagramPacket receberPack = new DatagramPacket(dadosRec, dadosRec.length);
                 serverSocket.receive(receberPack);
 
-                String resposta = prontuarioService.tratarProntuario(receberPack.getData());
+                String resposta = prontuarioService.tratarProntuario(new String(receberPack.getData()));
 
                 DatagramPacket res = new DatagramPacket(resposta.getBytes(), resposta.getBytes().length, receberPack.getAddress(), receberPack.getPort());
                 serverSocket.send(res);
