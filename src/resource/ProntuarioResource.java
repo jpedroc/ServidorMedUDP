@@ -1,6 +1,5 @@
 package resource;
 
-import domain.Prontuario;
 import service.ProntuarioService;
 
 import java.io.IOException;
@@ -10,12 +9,12 @@ import java.net.SocketException;
 
 public class ProntuarioResource {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         try {
             ProntuarioService prontuarioService = new ProntuarioService();
             DatagramSocket serverSocket = new DatagramSocket(5001);
 
-            while(true) {
+            while (true) {
                 byte[] dadosRec = new byte[1024];
 
                 DatagramPacket receberPack = new DatagramPacket(dadosRec, dadosRec.length);
